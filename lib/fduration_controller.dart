@@ -11,17 +11,16 @@ class FDurationController extends ChangeNotifier {
   int _hour = 0;
   int _minute = 0;
 
-  FDurationController({
-    required this.durationController,
-    this.multiplesOfMinutes = 60,
-  });
+  FDurationController(
+      {required this.durationController, this.multiplesOfMinutes = 60});
 
-  factory FDurationController.create({int durationController = 0}) {
-    int hour = 3600000;
-    if (durationController > 0 && durationController < 1440) {
-      hour = 60000 * durationController;
-    }
-    return FDurationController(durationController: hour)
+  factory FDurationController.create({int multiplesOfMinutes = 60}) {
+    const int hour = 3600000;
+    final int minutes = max(0, min(60, multiplesOfMinutes));
+    return FDurationController(
+      durationController: hour,
+      multiplesOfMinutes: minutes,
+    )
       ..onSetTodayDateTime()
       ..setRemainTime()
       ..setMinutes();
@@ -33,11 +32,12 @@ class FDurationController extends ChangeNotifier {
   }
 
   void onSetMinute(int index) {
-    _minute = hours[index];
+    _minute = minutes[index];
     notifyListeners();
   }
 
-  DateTime get value => DateTime(
+  DateTime get value =>
+      DateTime(
         dateNow.year,
         dateNow.month,
         dateNow.day,
@@ -54,11 +54,11 @@ class FDurationController extends ChangeNotifier {
   int get totalHourRemain =>
       (tomorrowDateTime.millisecondsSinceEpoch -
           dateNow.millisecondsSinceEpoch) ~/
-      durationController;
+          durationController;
 
   int get currentHour =>
       (dateNow.millisecondsSinceEpoch - todayDateTime.millisecondsSinceEpoch) ~/
-      durationController;
+          durationController;
 
   void setRemainTime() {
     final int totalRemain = totalHourRemain + 1;
@@ -73,7 +73,7 @@ class FDurationController extends ChangeNotifier {
 
   void setMinutes() {
     const int minute = 60;
-    final int minutesValue = max(0, multiplesOfMinutes);
+    final int minutesValue = max(1, multiplesOfMinutes);
     int totalCurrent = 0;
     while (totalCurrent < minute) {
       minutes.add(totalCurrent);
