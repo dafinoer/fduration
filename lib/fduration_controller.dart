@@ -1,9 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 
 class FDurationController extends ChangeNotifier {
-  final dateNow = DateTime.now();
+  final DateTime dateNow = DateTime.now();
   late final DateTime todayDateTime;
   final int durationController;
   final int multiplesOfMinutes;
@@ -37,14 +36,14 @@ class FDurationController extends ChangeNotifier {
       durationController;
 
   List<int> onSetRemainTime() {
-    final totalRemain = totalHourRemain;
+    final int totalRemain = totalHourRemain;
     final int hour = currentHour;
-    final hours = <int>[];
+    final List<int> hours = <int>[];
     if (totalRemain > 1) {
-      hours.addAll(List.generate(totalRemain, (index) => hour + index)
+      hours.addAll(List<int>.generate(totalRemain, (int index) => hour + index)
           .toList(growable: false));
     } else if (totalRemain > 0) {
-      hours.addAll(List.generate(totalRemain + 1, (index) => hour + index));
+      hours.addAll(<int>[hour, hour + 1]);
     } else {
       hours.add(hour);
     }
@@ -53,8 +52,8 @@ class FDurationController extends ChangeNotifier {
 
   List<int> minutes() {
     const int minute = 60;
-    final minutesValue = max(0, multiplesOfMinutes);
-    final minutes = <int>[];
+    final int minutesValue = max(0, multiplesOfMinutes);
+    final List<int> minutes = <int>[];
     int totalCurrent = 0;
     while (totalCurrent < minute) {
       minutes.add(totalCurrent);
