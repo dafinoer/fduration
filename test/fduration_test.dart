@@ -12,7 +12,7 @@ void main() {
     setUp(() {
       fDurationControllerMock = FDurationControllerMock();
       fDurationControllerObject =
-          FDurationController.create(durationController: 60);
+          FDurationController.create(multiplesOfMinutes: 0);
       final DateTime currentDate = DateTime.now();
       when(() => fDurationControllerMock.dateNow).thenReturn(
           DateTime(currentDate.year, currentDate.month, currentDate.day, 1));
