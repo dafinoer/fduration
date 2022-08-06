@@ -4,6 +4,9 @@ import 'package:fduration/fduration_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 class FDurationControllerMock extends Mock implements FDurationController {
+  int hour = 0;
+  int minute = 0;
+
   List<int> listOfMinute(int minuteUnit) {
     const int minute = 60;
     final int minValueMinute = max(0, minuteUnit);
@@ -16,6 +19,20 @@ class FDurationControllerMock extends Mock implements FDurationController {
     }
     return minutes;
   }
+
+  @override
+  void onSetHour(int index) {
+    hour = hours[index];
+  }
+
+  @override
+  void onSetMinute(int index) {
+    minute = minutes[index];
+  }
+
+  @override
+  DateTime get value =>
+      DateTime(dateNow.year, dateNow.month, dateNow.day, hour, minute);
 
   @override
   List<int> onSetRemainTime() {
