@@ -13,7 +13,7 @@ void main() {
       fDurationControllerMock = FDurationControllerMock();
       fDurationControllerObject =
           FDurationController.create(durationController: 60);
-      final currentDate = DateTime.now();
+      final DateTime currentDate = DateTime.now();
       when(() => fDurationControllerMock.dateNow).thenReturn(
           DateTime(currentDate.year, currentDate.month, currentDate.day, 1));
       when(() => fDurationControllerMock.durationController)
@@ -50,7 +50,7 @@ void main() {
         fDurationControllerMock.dateNow.month,
         fDurationControllerMock.dateNow.day + 1,
       ));
-      final result =
+      final int result =
           (fDurationControllerMock.tomorrowDateTime.millisecondsSinceEpoch -
                   fDurationControllerMock.dateNow.millisecondsSinceEpoch) ~/
               fDurationControllerMock.durationController;
@@ -59,9 +59,9 @@ void main() {
     });
 
     test('set real remind time test', () {
-      final result = fDurationControllerObject.onSetRemainTime();
+      final List<int> result = fDurationControllerObject.onSetRemainTime();
       expect(result.length, 2);
-      expect(result, [22, 23]);
+      expect(result, <int>[22, 23]);
     });
 
     test('Test remind time test with mock', () {
@@ -71,15 +71,15 @@ void main() {
 
       when(() => fDurationControllerMock.totalHourRemain).thenReturn(0);
       expect(fDurationControllerMock.onSetRemainTime().length, 1);
-      expect(fDurationControllerMock.onSetRemainTime(), [23]);
+      expect(fDurationControllerMock.onSetRemainTime(), <int>[23]);
       verify(fDurationControllerMock.onSetRemainTime).called(3);
     });
-    
+
     test('Test multiples of minute', () {
-      final resultMax = fDurationControllerMock.listOfMinute(60);
-      final resultMin = fDurationControllerMock.listOfMinute(0);
-      final result15minutes = fDurationControllerMock.listOfMinute(15);
-      final resultMinus = fDurationControllerMock.listOfMinute(-20);
+      final List<int> resultMax = fDurationControllerMock.listOfMinute(60);
+      final List<int> resultMin = fDurationControllerMock.listOfMinute(0);
+      final List<int> result15minutes = fDurationControllerMock.listOfMinute(15);
+      final List<int> resultMinus = fDurationControllerMock.listOfMinute(-20);
       expect(resultMax.length, 1);
       expect(resultMin.length, 1);
       expect(result15minutes.length, 4);
