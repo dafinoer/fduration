@@ -59,9 +59,8 @@ void main() {
     });
 
     test('set real remind time test', () {
-      final List<int> result = fDurationControllerObject.onSetRemainTime();
-      expect(result.length, 2);
-      expect(result, <int>[22, 23]);
+      final List<int> result = fDurationControllerObject.hours;
+      expect(result.length, 10);
     });
 
     test('Test remind time test with mock', () {
@@ -78,12 +77,23 @@ void main() {
     test('Test multiples of minute', () {
       final List<int> resultMax = fDurationControllerMock.listOfMinute(60);
       final List<int> resultMin = fDurationControllerMock.listOfMinute(0);
-      final List<int> result15minutes = fDurationControllerMock.listOfMinute(15);
+      final List<int> result15minutes =
+          fDurationControllerMock.listOfMinute(15);
       final List<int> resultMinus = fDurationControllerMock.listOfMinute(-20);
       expect(resultMax.length, 1);
       expect(resultMin.length, 1);
       expect(result15minutes.length, 4);
       expect(resultMinus.length, 1);
+    });
+
+    test('Test set hour and minute', () {
+      when(() => fDurationControllerMock.hours).thenReturn(<int>[0, 1, 2]);
+      when(() => fDurationControllerMock.minutes).thenReturn(<int>[10, 20, 30]);
+      fDurationControllerMock.onSetHour(1);
+      fDurationControllerMock.onSetMinute(0);
+      expect(fDurationControllerMock.hour, 1);
+      expect(fDurationControllerMock.minute, 10);
+      expect(fDurationControllerMock.value.hour, 1);
     });
 
     tearDownAll(() {
