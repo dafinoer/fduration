@@ -6,6 +6,10 @@ class FDurationController extends ChangeNotifier {
   late final DateTime todayDateTime;
   final int durationController;
   final int multiplesOfMinutes;
+  final List<int> hours = <int>[];
+  final List<int> minutes = <int>[];
+  int _hour = 0;
+  int _minute = 0;
 
   FDurationController({
     required this.durationController,
@@ -17,8 +21,29 @@ class FDurationController extends ChangeNotifier {
     if (durationController > 0 && durationController < 1440) {
       hour = 60000 * durationController;
     }
-    return FDurationController(durationController: hour)..onSetTodayDateTime();
+    return FDurationController(durationController: hour)
+      ..onSetTodayDateTime()
+      ..setRemainTime()
+      ..setMinutes();
   }
+
+  void onSetHour(int index) {
+    _hour = hours[index];
+    notifyListeners();
+  }
+
+  void onSetMinute(int index) {
+    _minute = hours[index];
+    notifyListeners();
+  }
+
+  DateTime get value => DateTime(
+        dateNow.year,
+        dateNow.month,
+        dateNow.day,
+        _hour,
+        _minute,
+      );
 
   void onSetTodayDateTime() =>
       todayDateTime = DateTime(dateNow.year, dateNow.month, dateNow.day);
@@ -35,30 +60,24 @@ class FDurationController extends ChangeNotifier {
       (dateNow.millisecondsSinceEpoch - todayDateTime.millisecondsSinceEpoch) ~/
       durationController;
 
-  List<int> onSetRemainTime() {
-    final int totalRemain = totalHourRemain;
+  void setRemainTime() {
+    final int totalRemain = totalHourRemain + 1;
     final int hour = currentHour;
-    final List<int> hours = <int>[];
-    if (totalRemain > 1) {
+    if (totalRemain > 0) {
       hours.addAll(List<int>.generate(totalRemain, (int index) => hour + index)
           .toList(growable: false));
-    } else if (totalRemain > 0) {
-      hours.addAll(<int>[hour, hour + 1]);
     } else {
       hours.add(hour);
     }
-    return hours;
   }
 
-  List<int> minutes() {
+  void setMinutes() {
     const int minute = 60;
     final int minutesValue = max(0, multiplesOfMinutes);
-    final List<int> minutes = <int>[];
     int totalCurrent = 0;
     while (totalCurrent < minute) {
       minutes.add(totalCurrent);
       totalCurrent += minutesValue % 60 != 0 ? minutesValue : 60;
     }
-    return minutes;
   }
 }
