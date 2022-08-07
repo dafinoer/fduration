@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 class FDurationController extends ChangeNotifier {
-  final DateTime dateNow = DateTime.now();
+  final DateTime dateNow;
   late final DateTime todayDateTime;
   final int durationController;
   final int multiplesOfMinutes;
@@ -11,13 +11,17 @@ class FDurationController extends ChangeNotifier {
   int _hour = 0;
   int _minute = 0;
 
-  FDurationController(
-      {required this.durationController, this.multiplesOfMinutes = 60});
+  FDurationController({
+    required this.durationController,
+    this.multiplesOfMinutes = 60,
+    required this.dateNow,
+  });
 
   factory FDurationController.create({int multiplesOfMinutes = 60}) {
     const int hour = 3600000;
     final int minutes = max(0, min(60, multiplesOfMinutes));
     return FDurationController(
+      dateNow: DateTime.now(),
       durationController: hour,
       multiplesOfMinutes: minutes,
     )
@@ -36,8 +40,7 @@ class FDurationController extends ChangeNotifier {
     notifyListeners();
   }
 
-  DateTime get value =>
-      DateTime(
+  DateTime get value => DateTime(
         dateNow.year,
         dateNow.month,
         dateNow.day,
@@ -51,18 +54,18 @@ class FDurationController extends ChangeNotifier {
   DateTime get tomorrowDateTime =>
       DateTime(dateNow.year, dateNow.month, dateNow.day, 23, 59);
 
-  int get totalHourRemain =>
+  int totalHourRemain() =>
       (tomorrowDateTime.millisecondsSinceEpoch -
           dateNow.millisecondsSinceEpoch) ~/
-          durationController;
+      durationController;
 
-  int get currentHour =>
+  int currentHour() =>
       (dateNow.millisecondsSinceEpoch - todayDateTime.millisecondsSinceEpoch) ~/
-          durationController;
+      durationController;
 
   void setRemainTime() {
-    final int totalRemain = totalHourRemain + 1;
-    final int hour = currentHour;
+    final int totalRemain = totalHourRemain() + 1;
+    final int hour = currentHour();
     if (totalRemain > 0) {
       hours.addAll(List<int>.generate(totalRemain, (int index) => hour + index)
           .toList(growable: false));
