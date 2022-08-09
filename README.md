@@ -1,6 +1,4 @@
 # FDuration 
-FDuration is a pick duration base on datetime
+FDuration is a digital time picker
 
-<img src="https://s4.gifyu.com/images/video_2022-08-09_11-34-52.gif" width="275" height="550" />
-
-## Usage
+<img src="https://i.imgur.com/M0hY785.gif" width="275" height="550" />
