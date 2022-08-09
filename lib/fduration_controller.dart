@@ -1,5 +1,6 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/widgets.dart';
 
 class FDurationController extends ChangeNotifier {
   final DateTime dateNow;
