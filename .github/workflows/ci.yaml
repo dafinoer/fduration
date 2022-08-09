@@ -34,7 +34,7 @@ jobs:
 
       - name: Run Test
         run: |
-          dart pub global activate coverage
+          dart pub global activate coverage 1.3.2
           dart pub global run coverage:test_with_coverage
 
       - name: Upload code coverage to codecov
