@@ -33,6 +33,10 @@ jobs:
       - name: Run Unit Test
         run: flutter test
 
+      - name: Run Test
+        run: |
+          dart pub global run coverage:test_with_coverage && dart pub global run coverage:test_with_coverage
+
       - name: Upload code coverage to codecov
         uses: codecov/codecov-action@v1
         with:
