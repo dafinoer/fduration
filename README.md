@@ -1,6 +1,6 @@
 # FDuration 
 FDuration is a pick duration base on datetime
 
-<img src="https://thumbs.gfycat.com/KaleidoscopicPlumpGnat-mobile.mp4" width="200" height="200" />
+<img src="https://s4.gifyu.com/images/video_2022-08-09_11-34-52.gif" width="275" height="550" />
 
 ## Usage
