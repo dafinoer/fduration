@@ -37,6 +37,8 @@ jobs:
 
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1
+        with:
+          min_coverage: 50
 
       - name: Upload code coverage to codecov
         uses: codecov/codecov-action@v1
