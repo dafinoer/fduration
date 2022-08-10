@@ -15,6 +15,6 @@ class FDurationControllerStub extends FDurationController {
       durationController: hour,
       dateNow: dateTime,
       multiplesOfMinutes: 15,
-    )..onSetTodayDateTime();
+    );
   }
 }

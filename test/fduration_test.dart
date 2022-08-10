@@ -24,6 +24,7 @@ void main() {
       ));
       fDurationControllerStub =
           FDurationControllerStub.create(fDurationControllerMock.dateNow);
+      fDurationControllerStub.onSetTodayDateTime();
     });
 
     test('Test hour time', () {
@@ -50,6 +51,42 @@ void main() {
     test('Test total minutes', () {
       fDurationControllerStub.setMinutes();
       expect(fDurationControllerStub.minutes.length, 4);
+    });
+
+    test('Test set hour time', () {
+      fDurationControllerStub.setRemainTime();
+      fDurationControllerStub.setMinutes();
+      fDurationControllerStub.onSetHour(0);
+      expect(fDurationControllerStub.value.hour, 22);
+    });
+
+    test('Test set minute time', () {
+      fDurationControllerStub.setRemainTime();
+      fDurationControllerStub.setMinutes();
+      fDurationControllerStub.onSetMinute(1);
+      expect(fDurationControllerStub.value.minute, 15);
+    });
+
+    test('Test value', () {
+      fDurationControllerStub.setRemainTime();
+      fDurationControllerStub.setMinutes();
+      fDurationControllerStub.onSetHour(0);
+      fDurationControllerStub.onSetMinute(1);
+
+      final DateTime result = fDurationControllerStub.value;
+      expect(result.hour, 22);
+      expect(result.minute, 15);
+    });
+
+    test('Test on set Today date', () {
+      when(() => fDurationControllerMock.todayDateTime).thenReturn(DateTime(
+          fDurationControllerMock.dateNow.year,
+          fDurationControllerMock.dateNow.month,
+          fDurationControllerMock.dateNow.day));
+      fDurationControllerMock.onSetTodayDateTime();
+      verify(fDurationControllerMock.onSetTodayDateTime).called(1);
+
+      expect(fDurationControllerMock.todayDateTime.hour, 0);
     });
 
     tearDownAll(() {

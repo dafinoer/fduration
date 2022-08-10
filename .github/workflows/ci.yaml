@@ -19,7 +19,29 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - run: flutter --version
-      - run: flutter pub get
-      - run: flutter analyze
-      - run: flutter test
+
+      - name: Flutter Version
+        run: flutter --version
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Run Unit Test
+        run: flutter test
+
+      - name: Run Test Coverage
+        run: flutter test --coverage --coverage-path=coverage/lcov.info
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1
+        with:
+          min_coverage: 80
+
+      - name: Upload code coverage to codecov
+        uses: codecov/codecov-action@v3.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
