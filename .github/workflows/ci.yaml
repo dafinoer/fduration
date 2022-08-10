@@ -33,7 +33,7 @@ jobs:
         run: flutter test
 
       - name: Run Test Coverage
-        run: flutter test --coverage
+        run: flutter test --coverage --coverage-path=coverage/lcov.info
 
       - name: Upload code coverage to codecov
         uses: codecov/codecov-action@v1
