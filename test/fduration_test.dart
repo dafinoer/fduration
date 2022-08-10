@@ -73,7 +73,7 @@ void main() {
       fDurationControllerStub.onSetHour(0);
       fDurationControllerStub.onSetMinute(1);
 
-      final result = fDurationControllerStub.value;
+      final DateTime result = fDurationControllerStub.value;
       expect(result.hour, 22);
       expect(result.minute, 15);
     });
