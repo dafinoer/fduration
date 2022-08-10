@@ -43,5 +43,5 @@ jobs:
       - name: Upload code coverage to codecov
         uses: codecov/codecov-action@v3.1.0
         with:
-          token: ${{codecov.CODECOV_TOKEN}}
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info
